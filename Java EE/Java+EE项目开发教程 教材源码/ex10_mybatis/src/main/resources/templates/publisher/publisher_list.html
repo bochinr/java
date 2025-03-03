@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title>出版社信息管理</title></head>
+<body>
+<table width="100%" border="1" cellspacing="0" cellpadding="0"
+       style="border-collapse: collapse;border-color: #238FE7">
+    <tbody><tr><td>编号</td><td>名称</td><td>联系人</td><td>电话</td></tr>
+    <tr th:each="publisher:${publishers}">
+        <td th:text="${publisher.pubId}"></td>
+        <td th:text="${publisher.pubName}"></td>
+        <td th:text="${publisher.contacter}"></td>
+        <td th:text="${publisher.mobile}"></td>
+    </tr>
+    </tbody></table></body></html>

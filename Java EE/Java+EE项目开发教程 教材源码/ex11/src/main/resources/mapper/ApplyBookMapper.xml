@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javaee.ex11.mapper.ApplyBookMapper">
+    <select id="findApplyCountByBookId" parameterType="int" resultType="int">
+        select count(*) from apply_book where book_id=#{bookId};
+    </select>
+    <select id="findApplyBookByApplyBookId" parameterType="int" resultType="applyBook">
+        select * from apply_book where apply_book_id=#{findApplyBook};
+    </select>
+    <insert id="addApplyBook" parameterType="applyBook">
+        insert into apply_book(book_id,user_id,apply_date,apply_count,apply_status)
+            values(#{book.bookId},#{user.userId},#{applyDate},#{applyCount},0);
+    </insert>
+    <select id="findApplyBooksByUserId" parameterType="int" resultMap="applyBookMap">
+        select ab.*,b.book_name,b.isbn,b.price,u.user_name from apply_book ab,book b,user u
+        where ab.book_id=b.book_id and ab.user_id=u.user_id and ab.user_id=#{userId}
+    </select>
+    <select id="findNoApprovedApplyBooks" resultMap="applyBookMap">
+        select ab.*,b.book_name,b.isbn,b.price,u.user_name from apply_book ab,book b,user u
+        where ab.book_id=b.book_id and ab.user_id=u.user_id and ab.apply_status=0
+    </select>
+    <select id="findApprovedApplyBooks" resultMap="applyBookMap">
+        select ab.*,b.book_name,b.isbn,b.price,u.user_name from apply_book ab,book b,user u
+        where ab.book_id=b.book_id and ab.user_id=u.user_id and ab.apply_status=1
+    </select>
+    <select id="findApplyBooksInStorage" resultMap="applyBookMap">
+        select ab.*,b.book_name,b.isbn,b.price,u.user_name from apply_book ab,book b,user u
+        where ab.book_id=b.book_id and ab.user_id=u.user_id and ab.apply_status=3
+    </select>
+    <resultMap id="applyBookMap" type="applyBook">
+        <id property="applyBookId" column="apply_book_id"/>
+        <result column="book_id" property="book.bookId"/>
+        <result column="user_id" property="user.userId"/>
+        <result column="apply_date" property="applyDate"/>
+        <result column="apply_count" property="applyCount"/>
+        <result column="apply_status" property="applyStatus"/>
+        <result column="book_name" property="book.bookName"/>
+        <result column="isbn" property="book.isbn"/>
+        <result column="price" property="book.price"/>
+        <result column="user_name" property="user.userName"/>
+    </resultMap>
+    <update id="editApplyBookStatus" parameterType="applyBook">
+        update apply_book set apply_status=#{applyStatus} where apply_book_id=#{applyBookId};
+    </update>
+    <update id="editApplyBook" parameterType="applyBook">
+        update apply_book set book_id=#{book.bookId},user_id=#{user.userId},apply_date=#{applyDate},
+            apply_count=#{applyCount},apply_status=#{applyStatus} where apply_book_id=#{applyBookId};
+    </update>
+    <update id="editApplyCount" parameterType="applyBook">
+        update apply_book set apply_count=#{applyCount} where apply_book_id=#{applyBookId};
+    </update>
+    <update id="approveApply" parameterType="applyBook">
+        update apply_book set apply_status=#{applyStatus},approver=#{approver},approve_date=#{approveDate} where apply_book_id=#{applyBookId};
+    </update>
+</mapper>

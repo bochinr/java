@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javaee.ex03.mapper.BookMapper">
+    <select id="findBookByBookId" parameterType="Integer" resultType="book">
+        select * from book where book_id=#{value};
+    </select>
+    <select id="findBookByBookName" parameterType="String" resultType="book">
+        select * from book where book_name like concat('%',#{value},'%');
+    </select>
+    <select id="findBookByPrice" parameterType="float" resultType="book">
+        select * from book where price &lt; #{value};
+    </select>
+    <insert id="insertBook" parameterType="book" keyColumn="book_id"
+            keyProperty="bookId" useGeneratedKeys="true">
+        insert into book(book_name,isbn,price,pub_date,warehousing_date,author,pub_id,inventory)
+            values(#{bookName},#{isbn},#{price},#{pubDate},#{warehousingDate},#{author},#{pubId},#{inventory});
+    </insert>
+    <select id="findBookByPubId" parameterType="int" resultType="book">
+        select * from book where pub_id=#{value};
+    </select>
+    <select id="findBookByUserId" parameterType="int" resultType="book">
+        select * from book where book_id in (select book_id from distribute_book where user_id=#{value});
+    </select>
+</mapper>

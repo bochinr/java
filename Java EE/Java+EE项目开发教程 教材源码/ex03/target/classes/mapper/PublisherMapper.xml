@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javaee.ex03.mapper.PublisherMapper">
+    <select id="findPublisherByPubId" parameterType="int" resultMap="findPublisherMap">
+        select * from publisher where pub_id=#{value};
+    </select>
+    <resultMap id="findPublisherMap" type="publisher">
+        <!--<id property="pubId" column="pub_id"/>-->
+        <collection property="bookList" ofType="book" column="pub_id" select="com.javaee.ex03.mapper.BookMapper.findBookByPubId"/>
+    </resultMap>
+    <select id="findPublisherByPubIdEx" parameterType="int" resultMap="findPublisherExMap">
+        select pub_name,contacter,mobile,b.* from publisher p,book b where p.pub_id=b.pub_id and p.pub_id=#{value};
+    </select>
+    <resultMap id="findPublisherExMap" type="publisher">
+        <id property="pubId" column="pub_id"/>
+        <collection property="bookList" ofType="book">
+            <id property="bookId" column="book_id"/>
+            <result property="bookName" column="book_name"/>
+        </collection>
+    </resultMap>
+</mapper>

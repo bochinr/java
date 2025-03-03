@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+    <bean name="classService" class="com.javaee.ex04.service.ClassService" scope="prototype"/>
+    <bean name="teacherService" class="com.javaee.ex04.service.TeacherService" scope="prototype">
+        <property name="classService" ref="classService"/>
+    </bean>
+    <bean name="studentService" class="com.javaee.ex04.service.StudentService" scope="singleton">
+        <property name="classService" ref="classService"/>
+    </bean>
+</beans>

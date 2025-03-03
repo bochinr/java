@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javaee.ex03.mapper.CourseMapper">
+    <select id="findCourseByCourseId" parameterType="int" resultMap="findCourseMap">
+        select * from course where course_id=#{value};
+    </select>
+    <resultMap id="findCourseMap" type="course">
+        <!--<result property="bookId" column="book_id"/>-->
+        <association property="book" column="book_id" javaType="book" select="com.javaee.ex03.mapper.BookMapper.findBookByBookId"/>
+    </resultMap>
+    <select id="findCourseByCourseIdEx" parameterType="int" resultMap="findCourseExMap">
+        select course_id,course_name,period,credit,b.* from course c,book b
+            where c.book_id=b.book_id and course_id=#{value};
+    </select>
+    <resultMap id="findCourseExMap" type="course">
+        <id property="courseId" column="course_id"/>
+        <result property="courseName" column="course_name"/>
+        <result property="period" column="period"/>
+        <association property="book" javaType="book">
+            <id property="bookId" column="book_id"/>
+            <result property="bookName" column="book_name"/>
+        </association>
+    </resultMap>
+<!--    <resultMap id="findCourseExMap" type="course">
+        <id property="book.bookId" column="book_id"/>
+        <result property="book.bookName" column="book_name"/>
+    </resultMap>-->
+<!--    <select id="findCourseByCourseIdEx" parameterType="int" resultType="course">
+        select course_id,course_name,period,credit,b.book_id "book.bookId",b.book_name "book.bookName" from course c,book b
+        where c.book_id=b.book_id and course_id=#{value};
+    </select>-->
+</mapper>

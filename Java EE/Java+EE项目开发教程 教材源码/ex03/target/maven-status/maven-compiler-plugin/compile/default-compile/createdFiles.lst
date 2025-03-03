@@ -1,0 +1,3 @@
+com\javaee\ex03\mapper\BookMapper.class
+com\javaee\ex03\po\Book.class
+com\javaee\ex03\mapper\BookDynamicMapper.class

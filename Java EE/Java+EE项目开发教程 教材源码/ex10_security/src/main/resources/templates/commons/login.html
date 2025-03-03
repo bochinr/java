@@ -1,0 +1,15 @@
+<!DOCTYPE html><html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title>用户登录</title></head>
+<body>
+<form id="form1" name="form1" th:method="post" th:action="@{/commons/to_login}">
+    <table width="350" border="0" cellspacing="0" cellpadding="0"><tbody>
+    <tr><td align="center"><h3>
+        <img th:src="@{/images/logo.png}" height="20"/>教材管理系统</h3></td></tr>
+    <tr><td align="center">用户登录</td></tr>
+    <tr><td align="center" height="30">
+        <input name="loginName" type="text"placeholder="登录名" size="30"></td></tr>
+    <tr><td align="center" height="30">
+        <input type="password" name="password" placeholder="密码" size="30"></td></tr>
+    <tr><td align="center"><input type="submit" value="登录"></td></tr>
+    </tbody></table>
+</form></body></html>

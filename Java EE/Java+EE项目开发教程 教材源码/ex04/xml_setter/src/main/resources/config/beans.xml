@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+    <bean name="classService" class="com.javaee.ex04.service.ClassService">
+        <property name="classNo" value="2215711"/>
+        <property name="className" value="22级软件工程1班"/>
+        <property name="major" value="软件工程"/>
+    </bean>
+    <bean name="studentService" class="com.javaee.ex04.service.StudentService">
+        <property name="sno" value="221571101"/>
+        <property name="sname" value="张晓媛"/>
+        <property name="classService" ref="classService"/>
+        <property name="scoreList">
+            <list>
+                <value>89.5</value>
+                <value>78.0</value>
+                <value>84.0</value>
+            </list>
+        </property>
+        <property name="interest">
+            <set>
+                <value>蓝球</value>
+                <value>爬山</value>
+                <value>跳绳</value>
+            </set>
+        </property>
+        <property name="other">
+            <map>
+                <entry key="mobile" value="13588886666"/>
+                <entry key="QQ" value="5874587"/>
+                <entry key="address" value="广东省广州市"/>
+            </map>
+        </property>
+    </bean>
+</beans>

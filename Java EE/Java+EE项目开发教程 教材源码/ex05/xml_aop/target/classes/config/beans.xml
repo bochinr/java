@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+    <bean name="bookService" class="com.javaee.ex05.service.impl.BookServiceImpl" />
+    <bean name="xmlAspect" class="com.javaee.ex05.aspect.XmlAspect" />
+    <!-- aop配置-->
+    <aop:config proxy-target-class="true">
+        <aop:pointcut id="pointCut" expression=
+                "execution(* com.javaee.ex05.service.impl.BookServiceImpl.*(..))"/>
+        <aop:aspect ref="xmlAspect">
+            <aop:before method="beforeAdvice" pointcut-ref="pointCut"/>
+            <aop:after-returning method="afterReturningAdivce" pointcut-ref="pointCut"/>
+            <aop:around method="aroundAdvice" pointcut-ref="pointCut"/>
+            <aop:after-throwing method="exceptionAdvice" pointcut-ref="pointCut" throwing="e"/>
+            <aop:after method="afterAdvice" pointcut-ref="pointCut"/>
+        </aop:aspect>
+    </aop:config>
+</beans>

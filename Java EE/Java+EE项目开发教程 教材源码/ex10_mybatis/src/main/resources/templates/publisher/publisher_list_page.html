@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title>出版社信息管理</title></head>
+<body>
+<table width="100%" border="1" cellspacing="0" cellpadding="0"
+       style="border-collapse: collapse;border-color: #238FE7">
+    <tbody><tr><td>编号</td><td>名称</td><td>联系人</td><td>电话</td></tr>
+    <tr th:each="publisher:${pageInfo.list}">
+        <td th:text="${publisher.pubId}"></td>
+        <td th:text="${publisher.pubName}"></td>
+        <td th:text="${publisher.contacter}"></td>
+        <td th:text="${publisher.mobile}"></td>
+    </tr>
+    </tbody></table>
+<p>当前 <span th:text="${pageInfo.pageNum}"></span> 页,总
+    <span th:text="${pageInfo.pages}"></span> 页,共
+    <span th:text="${pageInfo.total}"></span> 条记录</p>
+<a th:href="@{publisher_list_page}">首页</a>
+<a th:href="@{publisher_list_page(pageNum=${pageInfo.hasPreviousPage}?
+${pageInfo.prePage}:1)}">上一页</a>
+<a th:href="@{publisher_list_page(pageNum=${pageInfo.hasNextPage}?
+${pageInfo.nextPage}:${pageInfo.pages})}">下一页</a>
+<a th:href="@{publisher_list_page(pageNum=${pageInfo.pages})}">尾页</a>
+</body></html>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javaee.ex02.mapper.PublisherMapper">
+    <select id="findPublisherByPubId" parameterType="Integer"
+            resultType="com.javaee.ex02.po.Publisher">
+        select * from publisher where pub_id=#{pubId};
+    </select>
+    <insert id="insertPublisher" parameterType="com.javaee.ex02.po.Publisher">
+        insert into publisher(pub_name,contacter,mobile)
+            values(#{pubName},#{contacter},#{mobile});
+    </insert>
+    <update id="updatePublisherByPubId" parameterType="com.javaee.ex02.po.Publisher">
+        update publisher set pub_name=#{pubName},contacter=#{contacter},
+            mobile=#{mobile} where pub_id=#{pubId};
+    </update>
+    <delete id="deletePublisherByPubId" parameterType="Integer">
+        delete from publisher where pub_id=#{value};
+    </delete>
+</mapper>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head><meta charset="UTF-8"><title>首页</title></head>
+<body>
+<div sec:authorize="permitAll()">
+    <div><form th:method="post" th:action="@{/commons/user_logout}">
+        <input type="submit" value="注销"/></form></div>
+    <hr/><div><a th:href="@{/commons/to_login}">登录</a></div>
+</div>
+<div sec:authorize="hasRole('TEACHER')">
+    <div><a th:href="@{/book/to_book_apply}">教材申请</a> </div>
+    <div><a th:href="@{/book/to_book_list}">教材信息管理</a> </div>
+</div>
+<div sec:authorize="hasRole('SERVICE_ADMIN')">
+    <a th:href="@{publisher/to_publisher_list}">出版社信息管理</a>
+</div>
+</body></html>
